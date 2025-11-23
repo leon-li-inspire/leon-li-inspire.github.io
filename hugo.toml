@@ -44,6 +44,28 @@ theme = 'introduction'
         icon  = "instagram"
         icon_pack = "fab"
 
+[menu]
+  [[menu.main]]
+    identifier = "main"
+    name = "Main"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 2
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 3
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 4
+
 
 [markup]
   defaultMarkdownHandler = "goldmark"
