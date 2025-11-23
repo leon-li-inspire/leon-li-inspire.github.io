@@ -1,0 +1,34 @@
+{{ $bundleRaw := resources.Get "sass/style.sass" | resources.ExecuteAsTemplate "css/main.tmp.css" . }}
+
+{{ if hugo.IsServer }}
+{{ $cssOpts := (dict "targetPath" "css/main.css" "enableSourceMap" true ) }}
+{{ $bundle := $bundleRaw | toCSS $cssOpts }}
+<link rel="stylesheet" href="{{ $bundle.RelPermalink }}" media="screen">
+{{ else }}
+{{ $cssOpts := (dict "targetPath" "css/main.css" ) }}
+{{ $postCSSOpts := (dict "use" "autoprefixer" ) }}
+{{ $bundle := $bundleRaw | toCSS $cssOpts | postCSS $postCSSOpts | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $bundle.RelPermalink }}" crossorigin="anonymous" media="screen">
+{{ end }}
+
+<!-- Dark/Light Mode Overrides -->
+{{ $darkRaw := resources.Get "sass/dark.sass" }}
+{{ $lightRaw := resources.Get "sass/light.sass" }}
+
+{{ if hugo.IsServer }}
+{{ $dark := $darkRaw | toCSS (dict "targetPath" "css/dark.css") }}
+{{ $light := $lightRaw | toCSS (dict "targetPath" "css/light.css") }}
+<link rel="stylesheet" id="dark-mode-css" href="{{ $dark.RelPermalink }}" disabled>
+<link rel="stylesheet" id="light-mode-css" href="{{ $light.RelPermalink }}" disabled>
+{{ else }}
+{{ $dark := $darkRaw | toCSS (dict "targetPath" "css/dark.css") | minify | fingerprint }}
+{{ $light := $lightRaw | toCSS (dict "targetPath" "css/light.css") | minify | fingerprint }}
+<link rel="stylesheet" id="dark-mode-css" href="{{ $dark.RelPermalink }}" disabled>
+<link rel="stylesheet" id="light-mode-css" href="{{ $light.RelPermalink }}" disabled>
+{{ end }}
+
+<!-- Custom css -->
+{{ range .Site.Params.customCSS -}}
+{{ $style := resources.Get . }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" crossorigin="anonymous" media="screen">
+{{- end }}

@@ -1,0 +1,60 @@
+baseURL = 'https://leon-li-inspire.github.io/'
+languageCode = 'en-us'
+title = "Leon Li(励)'s Blog"
+theme = 'introduction'
+
+[params]
+    themeStyle                   = "auto"                  # Choose "light" or "dark" or "auto"
+    showMenu                     = true                    # Show navigation menu
+    showRSSButton                = false                   # Show rss button in navigation
+    fadeIn                       = true                    # Turn on/off the fade-in effect
+    customJS                     = ["js/theme-toggle.js", "js/music-toggle.js"]  # Include custom JavaScript files placed under assets/
+    dateFormat                   = "Jan 2, 2006"
+    email                        = "youremail@email.com"   # E-mail address for contact section
+    
+    # Configure the home page
+    [params.home]
+        introHeight              = "fullheight"            # Input either "medium" or "large" or "fullheight"
+        showLatest               = true                    # Show latest blog post summary
+        showAllPosts             = false                   # Set true to list all posts on home page, or set false to link to separate blog list page
+        allPostsArchiveFormat    = true                    # show all posts in an archive format
+        localTime                = true                    # Show your current local time in contact section
+        timeZone                 = "America/Los_Angeles"   # Your timezone
+        timeFormat               = "en-US"                 # Language specific format to use
+
+    [params.share]
+        twitter                  = true
+        facebook                 = true
+        pinterest                = true
+
+    [[params.social]]
+        url   = "https://github.com/leon-li-inspire"
+        icon  = "github"
+        icon_pack = "fab"
+    [[params.social]]
+        url   = "https://x.com/LeonLi22239793"
+        icon  = "twitter"
+        icon_pack = "fab"
+    [[params.social]]
+        url   = "https://www.linkedin.com/in/yang-li-9b236350/"
+        icon  = "linkedin-in"
+        icon_pack = "fab"
+    [[params.social]]
+        url   = "https://www.instagram.com/leon.li.0506/"
+        icon  = "instagram"
+        icon_pack = "fab"
+
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    style = "solarized-dark"
+    tabWidth = 4
