@@ -26,7 +26,7 @@
                 </h1>
                 <div
                     class="subtitle is-3 {{ if or (.Site.Params.fadeIn | default true) .Site.Params.fadeInIndex }}fade-in two{{ end }}">
-                    {{ .Content }}
+                    <span id="typewriter-text" data-text="{{ .Content }}" style="opacity: 0;">{{ .Content }}</span>
                 </div>
                 <!-- End title and tagline -->
                 <!-- Some social icons -->

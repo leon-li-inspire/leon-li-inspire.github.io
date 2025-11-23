@@ -1,26 +1,5 @@
-# Hugo default output
 public/
 resources/
 .hugo_build.lock
-
-/resources/_gen
-/assets/jsconfig.json
-hugo_stats.json
-
-# Executable
-hugo
-hugo.exe
-hugo.darwin
-hugo.linux
-hugo.windows
-
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# Hugo lock
-.hugo_build.lock
-
-# OS metadata
 .DS_Store
-Thumbs.db
+node_modules/
