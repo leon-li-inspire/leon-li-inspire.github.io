@@ -1,0 +1,62 @@
+{{ define "title" }}
+<!-- Suppress default title for list pages -->
+{{ end }}
+
+{{ define "main" }}
+<div class="container top-pad">
+    <div class="post-header">
+        <h1 class="post-title-single">{{ .Title }}</h1>
+    </div>
+    <div class="post-list">
+        {{ $paginator := .Paginate (where .Pages "Type" "posts") 10 }}
+        {{ range $paginator.Pages }}
+        {{ if .IsPage }}
+        <div class="post-item">
+            <a href="{{ .Permalink }}" class="post-link-wrapper">
+                <h2 class="post-title">{{ .Title }}</h2>
+                <div class="post-summary">
+                    {{ .Content | replaceRE "(?s)<h[1-6].*" "" | plainify | truncate 300 }} </div>
+                        <div class="post-meta">
+                            <span>Date: {{ .Date.Format "January 2, 2006" }}</span> |
+                            <span>Estimated Reading Time: {{ .ReadingTime }} min</span> |
+                            <span>Author: {{ .Params.author | default .Site.Params.Author | default "Leon Li"
+                                }}</span>
+                        </div>
+            </a>
+        </div>
+        {{ end }}
+        {{ end }}
+    </div>
+    <div class="container has-text-centered top-pad">
+        {{ if gt .Paginator.TotalPages 1 }}
+        <ul class="pagination">
+            {{ if .Paginator.HasPrev }}
+            <li class="page-item">
+                <a href="{{ .Paginator.Prev.URL }}">&laquo;</a>
+            </li>
+            {{ else }}
+            <li class="page-item disabled">
+                <a href="#">&laquo;</a>
+            </li>
+            {{ end }}
+
+            {{ range .Paginator.Pagers }}
+            <li class="page-item {{ if eq . $ }}active{{ end }}">
+                <a href="{{ .URL }}">{{ .PageNumber }}</a>
+            </li>
+            {{ end }}
+
+            {{ if .Paginator.HasNext }}
+            <li class="page-item">
+                <a href="{{ .Paginator.Next.URL }}">&raquo;</a>
+            </li>
+            {{ else }}
+            <li class="page-item disabled">
+                <a href="#">&raquo;</a>
+            </li>
+            {{ end }}
+        </ul>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

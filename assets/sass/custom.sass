@@ -1,0 +1,227 @@
+// Custom Styles for Posts List
+
+// Define dynamic colors based on background lightness
+$card-bg: #fff
+$card-border: #eaeaea
+$text-primary: $body-color
+$text-secondary: #555
+$text-meta: #888
+$toc-bg: #f9f9f9
+$hover-shadow: rgba(0,0,0,0.1)
+
+@if lightness($background) < 50%
+  $card-bg: lighten($background, 5%)
+  $card-border: lighten($background, 10%)
+  $text-primary: $body-color
+  $text-secondary: darken($body-color, 20%)
+  $text-meta: darken($body-color, 30%)
+  $toc-bg: lighten($background, 5%)
+  $hover-shadow: rgba(255,255,255,0.1)
+
+  // Dark Mode Code Block Overrides
+  .markdown
+    code
+      color: #e6e6e6 !important // Light text for inline code
+      background-color: #2d2d2d !important // Dark background for inline code
+    
+    pre
+      background-color: #1e1e1e !important // Dark background for code blocks
+      code
+        background-color: transparent !important // Transparent background for code inside pre
+        color: #f8f8f2 !important // Light text for code blocks
+
+
+// Override Theme Title Size
+.bold-title.is-1
+  font-size: 2.5rem !important // Reduced from default (likely 3rem+)
+  margin-bottom: 1.5rem
+
+.post-list
+  display: flex
+  flex-direction: column
+  gap: 20px
+  max-width: 800px
+  margin: 0 auto
+  padding: 20px
+
+.post-item
+  background: $card-bg
+  border-radius: 8px
+  padding: 0 // Remove padding from container, move to link
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05)
+  border: 1px solid $card-border
+  transition: transform 0.2s ease, box-shadow 0.2s ease
+  overflow: hidden // Ensure link doesn't overflow
+
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 5px 15px $hover-shadow
+
+.post-link-wrapper
+  display: block
+  padding: 30px
+  text-decoration: none
+  color: inherit
+  height: 100%
+  width: 100%
+
+.post-title
+  font-size: 1.5rem // Reduced from 1.8rem
+
+  font-weight: 700
+  margin-bottom: 15px
+  color: $text-primary // Ensure title inherits color or uses primary
+
+
+.post-summary
+  font-size: 1rem // Reduced from 1.1rem
+
+  color: $text-secondary
+  line-height: 1.6
+  margin-bottom: 20px
+
+.post-meta
+  font-size: 0.9rem
+  color: $text-meta
+  font-family: 'Inter', sans-serif
+
+// Custom Styles for Single Post
+
+.post-header
+  max-width: 800px
+  margin: 0 auto 40px auto
+  text-align: left
+
+.post-title-single
+  font-size: 2.5rem
+  font-weight: 800
+  margin-bottom: 10px
+  color: $text-primary
+
+.post-content-wrapper-single
+  max-width: 800px
+  margin: 0 auto
+  position: relative
+
+.toc-container-top
+  background: $toc-bg
+  padding: 15px 20px
+  border-radius: 6px
+  margin-bottom: 40px
+  border: 1px solid $card-border
+  
+  details
+    summary
+      font-weight: 600
+      cursor: pointer
+      color: $text-primary
+      list-style: none // Hide default triangle in some browsers if needed, but usually kept
+      display: flex
+      align-items: center
+      
+      &::before
+        content: '▶'
+        font-size: 0.8em
+        margin-right: 10px
+        transition: transform 0.2s ease
+        
+    &[open] summary::before
+      transform: rotate(90deg)
+      
+    // Hide default marker
+    summary::-webkit-details-marker
+      display: none
+
+  nav ul
+    list-style: none
+    padding-left: 0
+    margin-top: 15px
+    
+    li
+      margin-bottom: 8px
+      
+      a
+        color: $text-secondary
+        text-decoration: none
+        &:hover
+          color: $primary
+          text-decoration: underline
+          
+      ul
+        padding-left: 20px
+        margin-top: 5px
+        border-left: 2px solid $card-border
+
+.post-content
+  font-size: 1.1rem
+  line-height: 1.8
+  color: $text-primary
+  
+  h2
+    margin-top: 40px
+    margin-bottom: 20px
+    font-size: 1.8rem
+    font-weight: 700
+    color: $h-color
+    
+  h3
+    margin-top: 30px
+    margin-bottom: 15px
+    font-size: 1.4rem
+    font-weight: 600
+    color: $h-color
+    color: $h-color
+
+// Global Light Mode Overrides (Outside the dark mode block)
+.markdown
+  code
+    color: $text-primary !important // Black/Dark text for inline code in light mode
+    background-color: #f5f5f5 !important // Light grey background for inline code
+  
+  pre
+    background-color: #f5f5f5 !important // Light grey background for code blocks
+    code
+      background-color: transparent !important // Transparent background for code inside pre
+
+// Pagination Styles
+.pagination
+  display: flex
+  justify-content: center
+  align-items: center
+  list-style: none
+  padding: 0
+  margin-top: 40px
+  gap: 10px
+
+  .page-item
+    margin: 0
+    
+    a
+      display: block
+      padding: 8px 12px
+      text-decoration: none
+      color: $text-primary
+      border-radius: 4px
+      transition: background-color 0.2s
+      
+      &:hover
+        background-color: #f0f0f0
+        
+    &.active a
+      background-color: $primary
+      color: #fff
+      font-weight: bold
+    
+    &.disabled a
+      color: $text-meta
+      pointer-events: none
+
+// Header Color Override
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6
+  color: $text-primary !important
+

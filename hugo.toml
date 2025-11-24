@@ -4,6 +4,7 @@ title = "Leon Li(励)'s Blog"
 theme = 'introduction'
 
 [params]
+    Author                       = "Leon Li"
     themeStyle                   = "auto"                  # Choose "light" or "dark" or "auto"
     showMenu                     = true                    # Show navigation menu
     showRSSButton                = false                   # Show rss button in navigation
