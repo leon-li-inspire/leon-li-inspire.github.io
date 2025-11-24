@@ -1,0 +1,20 @@
+{
+    {- $.Scratch.Add "index" slice -
+    }
+}
+{
+    {- range where .Site.RegularPages "Type""not in" (slice "page""json") -
+    }
+}
+  {
+    {- $.Scratch.Add "index" (dict "title" .Title "permalink" .Permalink "summary" .Summary "content" .Plain "date" .Date "tags" .Params.tags) -
+    }
+}
+{
+    {- end -
+    }
+}
+{
+    {- $.Scratch.Get "index" | jsonify -
+    }
+}

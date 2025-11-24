@@ -1,0 +1,67 @@
+{{ define "main" }}
+<div class="container top-pad">
+    <h1 class="bold-title is-1">Search <i class="fas fa-search" style="font-size: 0.8em; opacity: 0.5;"></i></h1>
+
+    <div class="search-container">
+        <div class="search-input-wrapper">
+            <input type="text" id="search-input" placeholder="Search ↵">
+            <span class="search-icon-input">↵</span>
+        </div>
+        <div id="search-results" class="search-results"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<script>
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    let fuse;
+
+    // Fetch the search index
+    fetch('/index.json')
+        .then(response => response.json())
+        .then(data => {
+            const options = {
+                keys: ['title', 'content', 'tags', 'summary'],
+                threshold: 0.3,
+                ignoreLocation: true
+            };
+            fuse = new Fuse(data, options);
+        });
+
+    // Handle input
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+        if (!query) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        const results = fuse.search(query);
+        let html = '';
+
+        if (results.length > 0) {
+            html += '<ul class="search-list">';
+            results.forEach(result => {
+                const item = result.item;
+                html += `
+                    <li class="search-item">
+                        <a href="${item.permalink}">
+                            <h3>${item.title}</h3>
+                            <p>${item.summary ? item.summary.substring(0, 150) + '...' : ''}</p>
+                            <div class="search-meta">
+                                <span>${new Date(item.date).toLocaleDateString()}</span>
+                            </div>
+                        </a>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+        } else {
+            html = '<p>No results found.</p>';
+        }
+
+        searchResults.innerHTML = html;
+    });
+</script>
+{{ end }}
