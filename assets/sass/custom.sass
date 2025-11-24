@@ -172,16 +172,17 @@ $hover-shadow: rgba(0,0,0,0.1)
     color: $h-color
     color: $h-color
 
-// Global Light Mode Overrides (Outside the dark mode block)
-.markdown
-  code
-    color: $text-primary !important // Black/Dark text for inline code in light mode
-    background-color: #f5f5f5 !important // Light grey background for inline code
-  
-  pre
-    background-color: #f5f5f5 !important // Light grey background for code blocks
+// Global Light Mode Overrides
+@if lightness($background) >= 50%
+  .markdown
     code
-      background-color: transparent !important // Transparent background for code inside pre
+      color: $text-primary !important // Black/Dark text for inline code in light mode
+      background-color: #f5f5f5 !important // Light grey background for inline code
+    
+    pre
+      background-color: #f5f5f5 !important // Light grey background for code blocks
+      code
+        background-color: transparent !important // Transparent background for code inside pre
 
 // Pagination Styles
 .pagination
